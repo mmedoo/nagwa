@@ -1,0 +1,138 @@
+:root {
+	--border-standard: 1px solid #ccc;
+	--page-background: rgb(250, 255, 245);
+	--primary-color-primative: 46, 164, 79;
+	--primary-color-primative-light: 60, 191, 96;
+	--primary-color-primative-dark: 44, 151, 75;
+	--primary-color-primative-darker: 38, 122, 59;
+	--primary-color-primative-lighter: 72, 224, 119;
+
+	--primary-color: rgb(var(--primary-color-primative));
+	--primary-color-light: rgb(var(--primary-color-primative-light));
+	--primary-color-lighter: rgb(var(--primary-color-primative-lighter));
+	--primary-color-dark: rgb(var(--primary-color-primative-dark));
+	--primary-color-darker: rgb(var(--primary-color-primative-darker));
+}
+
+body {
+	height: 100vh;
+	width: 100vw;;
+	margin: 0;
+	overflow: hidden;
+	background-color: var(--page-background);
+}
+
+body * {
+	font-family: Lexend;
+}
+
+
+#root {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	height: 100%;
+}
+
+.completed {
+	text-decoration: line-through;
+	color: #bbb;
+}
+
+.light-text {
+	opacity: 0.5;
+	text-align: center;
+	width: fit-content;
+}
+
+.header {
+	width: 100%;
+	padding: 15px 5%;
+	border-bottom: var(--border-standard);
+	box-sizing: border-box;
+	position: relative;
+}
+
+#main {
+	font-size: 50px;
+}
+
+form {
+	width: 60%;
+	max-width: 400px;
+	&>* {
+		margin-bottom: 14px;
+	}
+}
+
+#btns {
+	padding: 20px 0;
+	top: 0;
+	position: sticky;
+	min-width: 150px;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+}
+
+input[type="checkbox"] {
+	accent-color: var(--primary-color);
+}
+
+.deleteButton {
+	background-color: rgba(255, 0, 0, 0.5) !important;
+	color: white;
+	box-shadow: none;
+	padding: 5px;
+
+	&:hover {
+		background-color: rgba(255, 0, 0, 0.95) !important;
+	}
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-weight: 300;
+}
+
+button {
+	display: flex;
+	align-items: center;
+	border: none;
+	font-size: 16px;
+	cursor: pointer;
+	padding: 5px 10px;
+	border-radius: 6px;
+	&:focus {
+		outline: none;
+	}
+}
+
+.primary-button {
+	background-color: var(--primary-color);
+	color: #fff;
+	&:hover {
+		background-color: var(--primary-color-dark);
+	}
+	&:active {
+		background-color: var(--primary-color-darker);
+		box-shadow: rgba(20, 70, 32, .2) 0 1px 0 inset;
+	}
+	&:focus {
+		box-shadow: rgba(var(--primary-color-primative-darker), .4) 0 0 0 3px;
+	}
+}
+
+.secondary-button {
+	background-color: transparent;
+	color: var(--primary-color);
+	border: var(--border-standard);
+	&:hover {
+		background-color: rgba(0, 0, 0, 0.1);
+	}
+	&:active {
+		background-color: var(--primary-color-light);
+	}
+	&:focus {
+		box-shadow: rgba(var(--primary-color-primative), .4) 0 0 0 3px;
+	}
+}

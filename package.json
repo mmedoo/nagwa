@@ -1,0 +1,9 @@
+{
+	"scripts": {
+		"review": "concurrently \"cd backend && npm run dev\" \"cd frontend && npm run dev\"",
+		"install": "concurrently \"cd backend && npm install\" \"cd frontend && npm install\""
+	},
+	"devDependencies": {
+		"concurrently": "^8.2.0"
+	}
+}

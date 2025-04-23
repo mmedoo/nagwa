@@ -1,0 +1,20 @@
+.todo-list-card {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	border: var(--border-standard);
+	border-radius: 6px;
+	padding: 10px 20px;
+	transition: all 0.1s;
+	cursor: pointer;
+
+	&:hover {
+		scale: 1.02;
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	}
+
+	& .title {
+		font-size: 24px;
+		font-weight: 600;
+	}
+}

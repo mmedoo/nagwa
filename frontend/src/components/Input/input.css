@@ -1,0 +1,100 @@
+.input_cont {
+	position: relative;
+	width: 100%;
+}
+
+.classy-input {
+	font: normal 20px sans-serif;
+	border-radius: 5px;
+	height: 40px;
+	padding-left: 13px;
+	box-sizing: border-box;
+	width: 100%;
+	transition: 0.35s ease-out;
+	border: var(--border-standard);
+	background-color: inherit;
+	user-select: none;
+
+	&:invalid {
+		border-color: #fd7878;
+		box-shadow: rgba(255, 0, 0, 0.2) 0px 0px 5px, rgba(255, 0, 0, 0.2) 0px 0px 5px;
+		&+label {
+			color: red;
+		}
+	}
+
+	&:focus {
+		&, focus-visible {
+			outline: none;
+		}
+		&:valid {
+			border-color: #4ed675;
+			box-shadow: rgba(0, 255, 0, 0.2) 0px 0px 5px, rgba(0, 255, 0, 0.2) 0px 0px 5px;
+		}
+
+		&:placeholder-shown:not(:required) , &:valid {
+			&+label {
+				color: #2ea44f;
+			}
+		}
+	}
+
+
+	&:placeholder-shown+label {
+		top: 50%;
+		left: 2.5%;
+		font-size: 16px;
+	}
+
+	&:not(:placeholder-shown), &:focus {
+		&+label {
+			font-size: 12px;
+			top: 0;
+			left: 1.25%;
+		}
+	}
+	
+	&+label {
+		font-weight: 300;
+		translate: 0 -50%;
+		position: absolute;
+		display: inline-block;
+		padding: 0 6px;
+		box-sizing: border-box;
+		pointer-events: none;
+		color: rgba(0, 0, 0, 0.5);
+		transition: 0.15s, color 0.5s ease-out;
+		background-color: var(--page-background);
+		user-select: none;
+		&:focus + .pwicon {
+			visibility: visible;
+		}
+	}
+
+	&:hover ~ .pwicon, &:focus ~ .pwicon {
+		visibility: visible;
+	}
+	& ~ .pwicon {
+		visibility: hidden;
+		position: absolute;
+		height: 1em;
+		aspect-ratio: 1;
+		padding: 7px;
+		top: 50%;
+		right: 2.5%;
+		translate: 0 -50%;
+		cursor: pointer;
+		border-radius: 50%;
+		overflow: hidden;
+		&:focus, &:hover {
+			visibility: visible;
+		}
+		&:hover {
+			backdrop-filter: brightness(0.9);
+		}
+		&:active {
+			backdrop-filter: brightness(0.8);
+		}
+	}
+
+}
