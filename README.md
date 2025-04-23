@@ -171,12 +171,3 @@ This route logs the user out of the application, clearing their session and redi
 
 ### **`/404`**
 A custom 404 page for invalid routes.
-
-
-# Future Improvements
-- **Environment Variables**: Move sensitive data (e.g., JWT secret) to `.env` files.
-- **Unit Tests**: Add tests for critical components and API endpoints.
-- **Accessibility**: Improve accessibility for better user experience.
-- **Dark Mode**: Add a dark mode theme.
-
----
