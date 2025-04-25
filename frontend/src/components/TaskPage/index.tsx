@@ -64,11 +64,10 @@ const Inputs = memo(function ({ task }: { task: TaskData }) {
 		if (complNode) complNode.checked = task.completed || false;
 
 		const controller = new AbortController();
-		const config = { signal: controller.signal };
 
-		titleNode?.addEventListener("input", updateTask, config);
-		descNode?.addEventListener("input", updateTask, config);
-		complNode?.addEventListener("change", updateTask, config);
+		titleNode?.addEventListener("input", updateTask, controller);
+		descNode?.addEventListener("input", updateTask, controller);
+		complNode?.addEventListener("change", updateTask, controller);
 
 		return () => {
 			controller.abort();

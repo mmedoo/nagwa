@@ -40,7 +40,6 @@ export default memo(function Menu() {
 	useEffect(() => {
 
 		const controller = new AbortController();
-		const config = { signal: controller.signal };
 
 		const newTask = () => {
 			addToDoAndUpdateSelection({
@@ -49,7 +48,7 @@ export default memo(function Menu() {
 			});
 		}
 
-		newRef.current?.addEventListener("click", newTask, config);
+		newRef.current?.addEventListener("click", newTask, controller);
 
 		return () => {
 			controller.abort();

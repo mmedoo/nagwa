@@ -30,14 +30,13 @@ export default memo(function TaskMenuItem({
 		const delNode = delRef.current;
 
 		const controller = new AbortController();
-		const config = { signal: controller.signal };
 
 		taskNode?.addEventListener("click", (e) => {
 			if (e.target !== delNode)
 				dispatch(
 					setSelected(task.id)
 				)
-		}, config);
+		}, controller);
 
 		delNode?.addEventListener("click", (e) => {
 			e.stopPropagation();
@@ -45,16 +44,16 @@ export default memo(function TaskMenuItem({
 				taskId: task.id,
 				listId,
 			});
-		}, config);
+		}, controller);
 
 		taskNode?.addEventListener("dragstart", () => {
 			dragRef.current = task.id;
 			taskNode?.classList.add("dragging");
-		}, config);
+		}, controller);
 
 		taskNode?.addEventListener("dragover", (e) => {
 			e.preventDefault();
-		}, config);
+		}, controller);
 
 		taskNode?.addEventListener("dragenter", () => {
 			dragOverRef.current = task.id;
@@ -67,13 +66,13 @@ export default memo(function TaskMenuItem({
 					to: dragOverRef.current,
 				})
 			)
-		}, config);
+		}, controller);
 
 		taskNode?.addEventListener("dragend", () => {
 			taskNode?.classList.remove("dragging");
 			dragRef.current = null;
 			dragOverRef.current = null;
-		}, config);
+		}, controller);
 
 		return () => {
 			controller.abort();

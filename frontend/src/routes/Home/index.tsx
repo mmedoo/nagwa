@@ -35,7 +35,6 @@ export default function Home() {
 		const popUpNode = popUpRef.current;
 
 		const controller = new AbortController();
-		const config = { signal: controller.signal };
 
 		// Adding new List
 		formNode?.addEventListener("submit", (e) => {
@@ -46,17 +45,17 @@ export default function Home() {
 			}))
 			if (formNode)
 				formNode.newListTitle.value = "";
-		}, config);
+		}, controller);
 
 		// Pop up menu
 		badgeNode?.addEventListener("click", () => {
 			popUpNode?.classList.toggle("spread");
-		}, config);
+		}, controller);
 
 		// Losing focus on the badge
 		badgeNode?.addEventListener("blur", () => {
 			popUpNode?.classList.remove("spread");
-		}, config);
+		}, controller);
 
 		return () => {
 			controller.abort();
