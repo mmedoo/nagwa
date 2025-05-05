@@ -12,6 +12,6 @@ export const pushTodosToBackend = async (todos: MappedListData[]) => {
 	try {
 		await api.put('/todos', { todos: unmappedTodos });
 	} catch (error) {
-		throw new Error('Failed to push todos to backend');
+		throw new Error(`Failed to push todos to backend ${error}`);
 	}
 }

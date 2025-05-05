@@ -1,6 +1,5 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../../app/store";
-import { useMemo } from "react";
 
 /**
  * A custom React hook that prevents non-authenticated users from accessing certain parts of the application.
@@ -28,7 +27,5 @@ import { useMemo } from "react";
  * - `useSelector` from `react-redux` to access the Redux store.
  */
 export function useIsAuthed() {
-	const authStatus = useSelector((state: RootState) => state.auth);
-	return useMemo(() => authStatus, []);
-	// return useSelector((state: RootState) => state.auth);
+	return useSelector((state: RootState) => state.auth);
 }

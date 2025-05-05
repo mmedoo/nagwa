@@ -19,8 +19,13 @@ export default function List() {
 
 	const { listId } = useParams();
 
-	const tasks = useSelector((state: RootState) =>
-		get_all_taskData_from_listId(state, listId)
+	
+	const tasks = useSelector((state: RootState) => {
+		if (!listId) {
+			return null;
+		}
+		return get_all_taskData_from_listId(state, listId)
+	}
 	);
 
 	if (!tasks) {

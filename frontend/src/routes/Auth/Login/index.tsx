@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router";
+import { Link } from "react-router";
 import { useEffect, useRef, useState } from "react";
 import Input from "../../../components/Input";
 import { login } from "../../../features/auth/authThunks";
@@ -8,11 +8,10 @@ import Spinner from "../../../components/Spinner";
 
 export default function Login({ setErrorMessage }) {
 
-	const navigate = useNavigate();
 	const dispatch = useDispatch<AppDispatch>();
 	const formRef = useRef<HTMLFormElement>(null);
 
-	const [loading, setLoading] = useState<Boolean>(false);
+	const [loading, setLoading] = useState<boolean>(false);
 	
 	useEffect(() => {
 		const form = formRef.current;
@@ -64,9 +63,12 @@ export default function Login({ setErrorMessage }) {
 
 	useEffect(() => {
 		if (!formRef.current) return;
-		for (let input of formRef.current) {
-			loading ? input.setAttribute("disabled", "true")
-			: input.removeAttribute("disabled");
+		for (const input of formRef.current) {
+			if (loading) {
+				input.setAttribute("disabled", "true")
+			} else {
+				input.removeAttribute("disabled");
+			}
 		}
 	}, [loading])
 	

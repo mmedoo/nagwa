@@ -37,7 +37,7 @@ export default function App() {
 				subscribeToStore();
 				
 			} catch (error) {
-				console.error("Error fetching user:", error);
+				return;
 			} finally {
 				setIsAppReady(true);
 			}

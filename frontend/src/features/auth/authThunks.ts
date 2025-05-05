@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import api from "../../app/api"
 import { UnMappedListData, User } from '../../types';
-import { store, subscribeToStore } from '../../app/store';
+import { store } from '../../app/store';
 import { setListsFromUnmapped } from '../todos/todosSlice';
 
 export interface FetchCurrentUserResponse extends User {

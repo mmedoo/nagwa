@@ -1,13 +1,13 @@
-import { Link, useNavigate } from "react-router";
-import { useEffect, useRef } from "react";
+import { Link } from "react-router";
+import { useEffect, useRef, useState } from "react";
 import Input from "../../../components/Input";
 import { register } from "../../../features/auth/authThunks";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../app/store";
 
-export default function Login({ setErrorMessage }) {
+export default function SignUp({ setErrorMessage }) {
 
-	const navigate = useNavigate();
+	const [loading, setLoading] = useState<boolean>(false);
 	const dispatch = useDispatch<AppDispatch>();
 	const formRef = useRef<HTMLFormElement>(null);
 
@@ -27,6 +27,9 @@ export default function Login({ setErrorMessage }) {
 			if (!form) return;
 
 			e.preventDefault();
+
+			setLoading(true);
+			
 			form?.classList.remove("error");
 
 			const formData = new FormData(form);
@@ -59,8 +62,6 @@ export default function Login({ setErrorMessage }) {
 				setFormAsInvalid('Invalid Credentials');
 				return;
 			}
-
-			navigate("/");
 		}
 
 		form?.addEventListener("submit", handleSubmit);
@@ -69,6 +70,17 @@ export default function Login({ setErrorMessage }) {
 		}
 	}, []);
 
+	useEffect(() => {
+		if (!formRef.current) return;
+		for (const input of formRef.current) {
+			if (loading) {
+				input.setAttribute("disabled", "true")
+			} else {
+				input.removeAttribute("disabled");
+			}
+		}
+	}, [loading])
+	
 	return (
 		<>
 			<form ref={formRef} id="login">
