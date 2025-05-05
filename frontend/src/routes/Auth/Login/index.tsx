@@ -1,9 +1,10 @@
 import { Link, useNavigate } from "react-router";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Input from "../../../components/Input";
 import { login } from "../../../features/auth/authThunks";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../app/store";
+import Spinner from "../../../components/Spinner";
 
 export default function Login({ setErrorMessage }) {
 
@@ -11,6 +12,8 @@ export default function Login({ setErrorMessage }) {
 	const dispatch = useDispatch<AppDispatch>();
 	const formRef = useRef<HTMLFormElement>(null);
 
+	const [loading, setLoading] = useState<Boolean>(false);
+	
 	useEffect(() => {
 		const form = formRef.current;
 		if (!form) return;
@@ -26,6 +29,8 @@ export default function Login({ setErrorMessage }) {
 			e.preventDefault();
 			form?.classList.remove("error");
 
+			setLoading(true);
+			
 			const formData = new FormData(form);
 			const email = formData.get("email");
 			const password = formData.get("password");
@@ -49,7 +54,6 @@ export default function Login({ setErrorMessage }) {
 				return;
 			}
 
-			navigate("/");
 		}
 
 		form?.addEventListener("submit", handleSubmit);
@@ -58,6 +62,14 @@ export default function Login({ setErrorMessage }) {
 		}
 	}, []);
 
+	useEffect(() => {
+		if (!formRef.current) return;
+		for (let input of formRef.current) {
+			loading ? input.setAttribute("disabled", "true")
+			: input.removeAttribute("disabled");
+		}
+	}, [loading])
+	
 	return (
 		<>
 			<form ref={formRef} id="login">
@@ -86,6 +98,7 @@ export default function Login({ setErrorMessage }) {
 
 				<button className="primary-button button-3" type="submit">
 					Login
+					<Spinner />
 				</button>
 
 			</form>

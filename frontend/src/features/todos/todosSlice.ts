@@ -1,17 +1,9 @@
 import { createSlice, PayloadAction, nanoid } from '@reduxjs/toolkit';
-import { ListData, ListIdType, TaskData, TaskIdType } from '../../types';
-import { fetchTodos } from './todosThunks';
-
+import { MappedListData, ListIdType, TaskData, TaskIdType, UnMappedListData } from '../../types';
 
 const todosSlice = createSlice({
 	name: 'todos',
-	initialState: [] as ListData[],
-	extraReducers: (builder) => {
-		builder
-			.addCase(fetchTodos.fulfilled, (_state, action) => {
-				return action.payload;
-			})
-	},
+	initialState: [] as MappedListData[],
 	reducers: {
 		addTodo: {
 			reducer(state, action: PayloadAction<{ listId: ListIdType; task: TaskData }>) {
@@ -121,10 +113,10 @@ const todosSlice = createSlice({
 		},
 
 		addList: {
-			reducer(state, action: PayloadAction<{ list: ListData }>) {
+			reducer(state, action: PayloadAction<{ list: MappedListData }>) {
 				state.push(action.payload.list);
 			},
-			prepare(listInput: { title?: string; instance?: ListData }) {
+			prepare(listInput: { title?: string; instance?: MappedListData }) {
 				const { title, instance } = listInput;
 				if (instance) {
 					return {
@@ -143,19 +135,41 @@ const todosSlice = createSlice({
 									byId: {},
 									allIds: [],
 								},
-							} as ListData,
+							} as MappedListData,
 						},
 					};
 				}
 				throw new Error('Either title or instance must be provided.');
 			},
 		},
+
 		removeList(state, action: PayloadAction<{ listId: ListIdType }>) {
 			const { listId } = action.payload;
 			const listIndex = state.findIndex((l) => l.id === listId);
 
 			if (listIndex !== -1) {
 				state.splice(listIndex, 1);
+			}
+		},
+
+		setListsFromUnmapped(state, action: PayloadAction<UnMappedListData[]>) {
+			// Clear the current state
+			state.length = 0;
+
+			// Populate the state with the new todos
+			for (const list of action.payload) {
+				const mappedList: MappedListData = {
+					id: list.id,
+					title: list.title,
+					tasks: {
+						byId: Object.fromEntries(
+							list.tasks.map((task) => [task.id, task])
+						),
+						allIds: list.tasks.map((task) => task.id),
+					},
+				};
+
+				state.push(mappedList);
 			}
 		}
 	},
@@ -169,6 +183,7 @@ export const {
 	switchTodos,
 	addList,
 	removeList,
+	setListsFromUnmapped,
 } = todosSlice.actions;
 
 export default todosSlice.reducer;

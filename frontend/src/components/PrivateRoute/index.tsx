@@ -2,7 +2,9 @@ import { Navigate } from "react-router";
 import { useIsAuthed } from "../../features/auth/useIsAuth";
 
 type PrivateRouteProps = {
-
+	/**
+	 * The element to render if the user is allowed to access the route.
+	 */
 	element: React.ReactNode;
 	
 	/**

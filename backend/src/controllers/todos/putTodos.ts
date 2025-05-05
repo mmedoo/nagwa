@@ -1,7 +1,7 @@
 import { Response } from "express";
-import { AuthenticatedRequest } from "../../middleware/authMiddleware";
-import { Todos } from "../../models/todosModel";
-
+import { AuthenticatedRequest } from "../../types/jwtTypes";
+import { initTodosModel } from "../../models/todosModel";
+import { getTodosFromDB, updateTodosInDB } from "../../services/todosServices";
 
 export const updateTodos = async (req: AuthenticatedRequest, res: Response) => {
 	const { todos } = req.body;
@@ -14,18 +14,15 @@ export const updateTodos = async (req: AuthenticatedRequest, res: Response) => {
 	}
 
 	try {
-		const todo = await Todos.findOne({
-			where: { userId }
-		});
+		await initTodosModel();
+		const todo = await getTodosFromDB(userId);
 
 		if (!todo) {
 			res.status(404).json({ error: 'Todos not found' });
 			return;
 		}
 
-		await Todos.update({ todos: JSON.stringify(todos) }, {
-			where: { userId }
-		});
+		await updateTodosInDB(userId, todos);
 
 		res.status(204).send();
 

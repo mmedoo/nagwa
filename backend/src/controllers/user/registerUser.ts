@@ -1,11 +1,13 @@
 import { Request, Response } from "express";
-import { sendJWT } from "../../middleware/authMiddleware";
-import { Todos } from "../../models/todosModel";
-import { User } from "../../models/userModel";
-import { hashPassword } from "../../utils";
 import defaultTodos from "../../data/defaultTodos.json"
+import { hashPassword } from "../../utils/crypto";
+import { sendJWT } from "../../utils/jwt";
+import { initUserModel } from "../../models/userModel";
+import { createUserInDB, getUserByEmail } from "../../services/userServices";
+import { initTodosModel } from "../../models/todosModel";
+import { createTodoInDB } from "../../services/todosServices";
 
-export const createUser = async (req: Request, res: Response) => {
+export const registerUser = async (req: Request, res: Response) => {
 
 	const { name, email, password, rememberMe } = req.body;
 
@@ -17,31 +19,30 @@ export const createUser = async (req: Request, res: Response) => {
 	const hashedPassword = hashPassword(password);
 
 	try {
-		const existingUser = await User.findOne({ where: { email } });
+		await initUserModel();
+		const existingUser = await getUserByEmail(email);
 
 		if (existingUser) {
 			res.status(400).json({ error: 'User already exists' });
 			return;
 		}
 
-		const user = await User.create({
+		const user = await createUserInDB({
 			name,
 			email,
 			hashedPassword
 		});
 
-		if (!user) {
+		if (!user || !user.id) {
 			throw Error('Internal Error');
 		}
 
-		Todos.create({
-			userId: user.id!,
-			todos: JSON.stringify(defaultTodos)
-		})
+		await initTodosModel();
+		await createTodoInDB(user.id, defaultTodos);
 
 		const { id } = user;
 
-		sendJWT({ id }, res, rememberMe);
+		sendJWT({ id }, rememberMe, res);
 
 		res.json({ id, name, todos: defaultTodos });
 

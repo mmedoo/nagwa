@@ -1,5 +1,5 @@
 import { Response } from "express";
-import { AuthenticatedRequest } from "../../middleware/authMiddleware";
+import { AuthenticatedRequest } from "../../types/jwtTypes";
 
 export const logoutUser = async (req: AuthenticatedRequest, res: Response) => {
 	try {

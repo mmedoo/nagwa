@@ -1,9 +1,11 @@
-import { sendJWT } from "../../middleware/authMiddleware";
-import { Todos } from "../../models/todosModel";
-import { User } from "../../models/userModel";
-import { comparePasswords } from "../../utils";
 import defaultTodos from "../../data/defaultTodos.json"
 import { Request, Response } from "express";
+import { comparePasswords } from "../../utils/crypto";
+import { sendJWT } from "../../utils/jwt";
+import { initUserModel } from "../../models/userModel";
+import { getUserByEmail } from "../../services/userServices";
+import { initTodosModel } from "../../models/todosModel";
+import { getTodosFromDB } from "../../services/todosServices";
 
 export const loginUser = async (req: Request, res: Response) => {
 	try {
@@ -14,9 +16,8 @@ export const loginUser = async (req: Request, res: Response) => {
 			return;
 		}
 
-		const user = await User.findOne({
-			where: { email }
-		});
+		await initUserModel();
+		const user = await getUserByEmail(email);
 
 		if (!user) {
 			res.status(404).json({ error: 'User not found' });
@@ -32,10 +33,10 @@ export const loginUser = async (req: Request, res: Response) => {
 
 		const { id, name } = user;
 
-		const todosString = (await Todos.findOne({ where: { userId: id } }))?.todos;
-		const todos = todosString ? JSON.parse(todosString) : defaultTodos
+		await initTodosModel();
+		const todos = (await getTodosFromDB(user.id)) ?? defaultTodos;
 
-		sendJWT({ id }, res, rememberMe);
+		sendJWT({ id }, rememberMe, res);
 
 		res.json({ id, name, todos });
 

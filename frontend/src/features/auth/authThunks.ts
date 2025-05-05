@@ -1,17 +1,15 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import api from "../../app/api"
-import { ListData, User } from '../../types';
-import { store } from '../../app/store';
+import { UnMappedListData, User } from '../../types';
+import { store, subscribeToStore } from '../../app/store';
+import { setListsFromUnmapped } from '../todos/todosSlice';
 
-interface FetchCurrentUserResponse extends User {
-	todos: ListData[]
+export interface FetchCurrentUserResponse extends User {
+	todos: UnMappedListData[]
 }
 
-const syncTodosState = (todos: ListData[]) => {	
-	store.dispatch({
-		type: 'todos/fetchTodos/fulfilled',
-		payload: todos
-	});
+const syncTodosState = (todos: UnMappedListData[]) => {	
+	store.dispatch(setListsFromUnmapped(todos));
 }
 
 export const logout = createAsyncThunk(
@@ -57,24 +55,6 @@ export const register = createAsyncThunk(
 
 		} catch (err: any) {
 			return thunkAPI.rejectWithValue(err.response?.data?.message || 'Register failed');
-		}
-	}
-);
-
-export const fetchCurrentUser = createAsyncThunk(
-	'auth/fetchCurrentUser',
-	async (_, thunkAPI) => {
-		try {
-			const response = await api.get('/me');
-
-			const { id, name, todos } = response.data as FetchCurrentUserResponse;
-			
-			syncTodosState(todos)
-			
-			return ({ id, name })
-
-		} catch {
-			return thunkAPI.rejectWithValue(null);
 		}
 	}
 );

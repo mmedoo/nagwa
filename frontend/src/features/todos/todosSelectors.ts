@@ -4,7 +4,7 @@ import { RootState } from "../../app/store";
 
 export const get_all_taskData_from_listId = createSelector(
 	(state: RootState) => state.todos,
-	(_state: RootState, listId: ListIdType | undefined) => listId,
+	(_state: RootState, listId: ListIdType) => listId,
 	(todos, listId) => {
 		if (!listId)
 			return undefined;

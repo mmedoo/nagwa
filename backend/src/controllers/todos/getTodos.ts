@@ -1,9 +1,8 @@
 import { Response } from "express";
-import { AuthenticatedRequest } from "../../middleware/authMiddleware";
-import { Todos } from "../../models/todosModel";
+import { AuthenticatedRequest } from "../../types/jwtTypes";
+import { getTodosFromDB } from "../../services/todosServices";
 
-
-export const getTodos = async (req: AuthenticatedRequest, res: Response) => {
+export const fetchUserTodos = async (req: AuthenticatedRequest, res: Response) => {
 
 	const userId = req.user?.id;
 
@@ -13,16 +12,15 @@ export const getTodos = async (req: AuthenticatedRequest, res: Response) => {
 	}
 
 	try {
-		const todos = await Todos.findOne({
-			where: { userId }
-		});
+		// await initTodosModel();
+		const todos = await getTodosFromDB(userId);
 
 		if (!todos) {
 			res.status(404).json({ error: 'Todos not found' });
 			return;
 		}
 
-		res.json(JSON.parse(todos.todos));
+		res.json(todos);
 
 	} catch (error) {
 		console.log(error);

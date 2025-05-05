@@ -13,9 +13,9 @@ export type TaskData = {
 
 export type ListIdType = string;
 /**
- * Represents the structure of a list containing tasks.
+ * Represents the structure of a mapped list containing tasks.
  */
-export type ListData = {
+export type MappedListData = {
 	/**
 	 * Unique identifier for the list.
 	 */
@@ -42,6 +42,25 @@ export type ListData = {
 		 */
 		allIds: TaskIdType[];
 	};
+};
+/**
+ * Represents the structure of an unmapped list containing tasks.
+ */
+export type UnMappedListData = {
+	/**
+	 * Unique identifier for the list.
+	 */
+	id: ListIdType;
+
+	/**
+	 * Title of the list.
+	 */
+	title: string;
+
+	/**
+	 * Object containing tasks associated with the list.
+	 */
+	tasks: TaskData[];
 };
 
 

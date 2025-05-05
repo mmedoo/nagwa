@@ -1,21 +1,17 @@
-import { Sequelize, DataTypes, Model } from "sequelize";
+import { DataTypes, Model } from "sequelize";
+import sequelize from "../db";
+import { UserModelAttributes } from "../types/userTypes";
 
-export interface UserAttributes {
-	id?: number;
-	name: string;
-	email: string;
-	hashedPassword: string;
-}
-
-export class User extends Model<UserAttributes> implements UserAttributes {
+export class UserModel extends Model<UserModelAttributes> implements UserModelAttributes {
 	declare id?: number;
 	declare name: string;
 	declare email: string;
 	declare hashedPassword: string;
 }
 
-export default (sequelize: Sequelize) => {
-	User.init(
+export function initUserModel() {
+	
+	UserModel.init(
 		{
 			id: {
 				type: DataTypes.INTEGER,
@@ -42,6 +38,5 @@ export default (sequelize: Sequelize) => {
 			updatedAt: false
 		}
 	);
-
-	return User;
-};
+	
+}

@@ -1,33 +1,51 @@
 import { Suspense, useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
 import { Route, Routes } from "react-router"
-import { AppDispatch } from "./app/store"
+import { AppDispatch, subscribeToStore } from "./app/store"
 import { lazy } from "react"
 import Message from "./components/Message"
 import PrivateRoute from "./components/PrivateRoute"
-import { fetchCurrentUser } from "./features/auth/authThunks"
+import api from "./app/api"
+import { setUser } from "./features/auth/authSlice"
+import { setListsFromUnmapped } from "./features/todos/todosSlice"
+import { FetchCurrentUserResponse } from "./features/auth/authThunks"
 
 const List = lazy(() => import("./routes/List"))
 const Auth = lazy(() => import("./routes/Auth"))
 const Home = lazy(() => import("./routes/Home"))
 const NotFound = lazy(() => import("./routes/NotFound"))
 
+let mounted = false;
 export default function App() {
 
 	const dispatch = useDispatch<AppDispatch>();
+	
 	const [isAppReady, setIsAppReady] = useState(false);
 	
 	useEffect(() => {
 		async function fetchUser() {
+			mounted = true;
 			try {
-				await dispatch( fetchCurrentUser() )
+				const response = await api.get('/me');
+				
+				const { id, name, todos } = response.data as FetchCurrentUserResponse;
+				
+				dispatch(setListsFromUnmapped(todos));
+				
+				dispatch(setUser({ id, name }));
+				
+				subscribeToStore();
+				
 			} catch (error) {
 				console.error("Error fetching user:", error);
 			} finally {
 				setIsAppReady(true);
 			}
 		}
-		fetchUser();
+		
+		if (!mounted) {
+			fetchUser();
+		}
 	}, []);
 	
 	if (!isAppReady) {

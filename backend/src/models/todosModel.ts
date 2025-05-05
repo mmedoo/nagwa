@@ -1,17 +1,14 @@
-import { Sequelize, DataTypes, Model } from "sequelize";
+import { DataTypes, Model } from "sequelize";
+import sequelize from "../db";
+import { TodosModelAttributes } from "../types/todosTypes";
 
-export interface TodosAttributes {
-	userId: number;
-	todos: string;
-}
-
-export class Todos extends Model<TodosAttributes> implements TodosAttributes {
+export class TodosModel extends Model<TodosModelAttributes> implements TodosModelAttributes {
 	public userId!: number;
 	public todos!: string;
 }
 
-export default (sequelize: Sequelize) => {
-	Todos.init(
+export function initTodosModel() {
+	TodosModel.init(
 		{
 			userId: {
 				type: DataTypes.INTEGER,
@@ -36,5 +33,4 @@ export default (sequelize: Sequelize) => {
 		}
 	);
 
-	return Todos;
 };

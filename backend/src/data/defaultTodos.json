@@ -2,16 +2,13 @@
 	{
 		"id": "sample_list_id",
 		"title": "Sample List",
-		"tasks": {
-			"byId": {
-				"sample_task_id": {
-					"id": "sample_task_id",
-					"title": "Sample Task",
-					"completed": false,
-					"description": "This is a sample task description."
-				}
-			},
-			"allIds": ["sample_task_id"]
-		}
+		"tasks": [
+			{
+				"id": "sample_task_id",
+				"title": "Sample Task",
+				"completed": false,
+				"description": "This is a sample task description."
+			}
+		]
 	}
 ]

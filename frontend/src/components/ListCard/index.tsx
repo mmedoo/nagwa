@@ -3,11 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { RootState } from "../../app/store";
 import { get_list_completion_percentage } from "../../features/todos/todosSelectors";
-import { ListData } from "../../types";
+import { MappedListData } from "../../types";
 import { removeList } from "../../features/todos/todosSlice";
 import "./listCard.css"
 
-export function ListCard({ list }: { list: ListData }) {
+export function ListCard({ list }: { list: MappedListData }) {
 
 	const navigate = useNavigate();
 	const dispatch = useDispatch();

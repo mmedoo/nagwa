@@ -26,6 +26,8 @@ const syncTodosDebounced = debounce((store) => {
 
 }, 0); // This mustn't be zero, It's just for faster testing results
 
-store.subscribe(() => {
-	syncTodosDebounced(store);
-});
+export const subscribeToStore = () => {
+	store.subscribe(() => {
+		syncTodosDebounced(store);
+	});
+}

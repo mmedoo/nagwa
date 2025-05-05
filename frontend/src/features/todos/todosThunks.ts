@@ -1,15 +1,17 @@
 import api from '../../app/api';
-import { createAsyncThunk } from '@reduxjs/toolkit';
-import { ListData } from '../../types';
+import { MappedListData, UnMappedListData } from '../../types';
 
-export const fetchTodos = createAsyncThunk<ListData[]>(
-	'todos/fetchTodos',
-	async () => {
-		const response = await api.get('/todos');
-		return response.data as ListData[];
+export const pushTodosToBackend = async (todos: MappedListData[]) => {
+	
+	const unmappedTodos: UnMappedListData[] = todos.map(({ id, title, tasks }) => ({
+		id,
+		title,
+		tasks: tasks.allIds.map((id) => tasks.byId[id]),
+	}));
+
+	try {
+		await api.put('/todos', { todos: unmappedTodos });
+	} catch (error) {
+		throw new Error('Failed to push todos to backend');
 	}
-);
-
-export const pushTodosToBackend = async (todos: ListData[]) => {
-	await api.put('/todos', { todos });
 }

@@ -17,23 +17,23 @@ export default function Auth() {
 			<Routes>
 
 				<Route element={
-					<div className="cont">
-						<h1>Nagwa Todo-list</h1>
+					<PrivateRoute forAuthed={false} element={
+						<div className="cont">
+							<h1>
+								Nagwa Todo-list
+							</h1>
 
-						<Outlet />
-						
-						<div className="error-message">
-							<p>{errorMessage}</p>
+							<Outlet />
+							
+							<div className="error-message">
+								<p>{errorMessage}</p>
+							</div>
 						</div>
-					</div>
+					} />
 				}>
-					<Route path="login" element={
-						<PrivateRoute forAuthed={false} element={<Login setErrorMessage={setErrorMessage} />} />
-					} />
-					<Route path="signup" element={
-						<PrivateRoute forAuthed={false} element={<SignUp setErrorMessage={setErrorMessage} />} />
-					} />
 
+					<Route path="login" element={<Login setErrorMessage={setErrorMessage} />} />
+					<Route path="signup" element={<SignUp setErrorMessage={setErrorMessage} />} />
 				</Route>
 
 
