@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import api from "../../app/api"
 import { UnMappedListData, User } from '../../types';
-import { store } from '../../app/store';
+import { store, subscribeToStore } from '../../app/store';
 import { setListsFromUnmapped } from '../todos/todosSlice';
 
 export interface FetchCurrentUserResponse extends User {
@@ -33,6 +33,8 @@ export const login = createAsyncThunk(
 			
 			syncTodosState(todos);
 
+			subscribeToStore();
+
 			return { id, name } as User;
 			
 		} catch (err: any) {
@@ -51,6 +53,8 @@ export const register = createAsyncThunk(
 
 			syncTodosState(todos);
 
+			subscribeToStore();
+			
 			return { id, name } as User;
 
 		} catch (err: any) {
