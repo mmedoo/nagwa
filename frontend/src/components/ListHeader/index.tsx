@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { RootState } from "../../app/store";
-import { MappedListData } from "../../types";
+import { MappedListData } from "../../types/TodosTypes";
 import { get_list_completion_percentage } from "../../features/todos/todosSelectors";
 import "./header.css"
 

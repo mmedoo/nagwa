@@ -166,7 +166,7 @@ The login page provides user authentication functionality. Users can log in with
 ### **`/auth/signup`**
 The signup page allows new users to create an account.
 
-### **`/auth/signout`**
+### **`/signout`**
 This route logs the user out of the application, clearing their session and redirecting them to the login page.
 
 ### **`/404`**

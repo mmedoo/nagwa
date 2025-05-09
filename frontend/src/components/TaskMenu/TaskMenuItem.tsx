@@ -1,5 +1,5 @@
 import { memo, useEffect, useRef } from "react";
-import { TaskData } from "../../types";
+import { TaskData } from "../../types/TodosTypes";
 import { useParams } from "react-router";
 import { useDispatch } from "react-redux";
 import { switchTodos } from "../../features/todos/todosSlice";

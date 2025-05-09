@@ -21,10 +21,10 @@ export default function PrivateRoute(
 ) {
 	const isAuthenticated = useIsAuthed();
 	
-	if (Boolean(isAuthenticated.id) !== forAuthed) {
+	if (isAuthenticated !== forAuthed) {
 
-		// If element is for authed users, redirect to login
-		// If element is for non-authed users, redirect to home
+		// If route is for authed users, redirect to login
+		// If route is for non-authed users, redirect to home
 		return <Navigate to={forAuthed ? "/auth/login" : "/"} />;
 	}
 	

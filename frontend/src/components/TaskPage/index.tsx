@@ -2,7 +2,7 @@ import { useRef, useEffect, memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { RootState } from "../../app/store";
-import { ListIdType, TaskData, TaskIdType } from "../../types";
+import { ListIdType, TaskData, TaskIdType } from "../../types/TodosTypes";
 import { updateTodo } from "../../features/todos/todosSlice";
 import "./TaskPage.css";
 import { get_single_taskData } from "../../features/todos/todosSelectors";

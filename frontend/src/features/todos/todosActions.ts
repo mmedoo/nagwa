@@ -1,5 +1,5 @@
 import { store } from "../../app/store";
-import { ListIdType, TaskData, TaskIdType } from "../../types";
+import { ListIdType, TaskData, TaskIdType } from "../../types/TodosTypes";
 import { setSelected } from "../selectedSlice";
 import { addTodo, deleteTodo } from "./todosSlice";
 

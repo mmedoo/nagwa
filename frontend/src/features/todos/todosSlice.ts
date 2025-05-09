@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction, nanoid } from '@reduxjs/toolkit';
-import { MappedListData, ListIdType, TaskData, TaskIdType, UnMappedListData } from '../../types';
+import { MappedListData, ListIdType, TaskData, TaskIdType, UnMappedListData } from "../../types/TodosTypes";
 
 const todosSlice = createSlice({
 	name: 'todos',

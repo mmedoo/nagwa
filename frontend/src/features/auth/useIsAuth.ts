@@ -27,5 +27,5 @@ import { RootState } from "../../app/store";
  * - `useSelector` from `react-redux` to access the Redux store.
  */
 export function useIsAuthed() {
-	return useSelector((state: RootState) => state.auth);
+	return useSelector((state: RootState) => state.auth.authStatus);
 }

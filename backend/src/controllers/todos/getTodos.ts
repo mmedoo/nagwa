@@ -1,8 +1,10 @@
 import { Response } from "express";
 import { AuthenticatedRequest } from "../../types/jwtTypes";
 import { getTodosFromDB } from "../../services/todosServices";
+import { TodosListsResponse } from "../../types/todosTypes";
+import { ErrorResponseBody } from "../../types/errorResponseTypes";
 
-export const fetchUserTodos = async (req: AuthenticatedRequest, res: Response) => {
+export const fetchUserTodos = async (req: AuthenticatedRequest, res: Response<TodosListsResponse | ErrorResponseBody>) => {
 
 	const userId = req.user?.id;
 
@@ -12,7 +14,6 @@ export const fetchUserTodos = async (req: AuthenticatedRequest, res: Response) =
 	}
 
 	try {
-		// await initTodosModel();
 		const todos = await getTodosFromDB(userId);
 
 		if (!todos) {

@@ -2,12 +2,12 @@ import { Request, Response } from "express";
 import defaultTodos from "../../data/defaultTodos.json"
 import { hashPassword } from "../../utils/crypto";
 import { sendJWT } from "../../utils/jwt";
-import { initUserModel } from "../../models/userModel";
 import { createUserInDB, getUserByEmail } from "../../services/userServices";
-import { initTodosModel } from "../../models/todosModel";
 import { createTodoInDB } from "../../services/todosServices";
+import { FetchedUserResponseBody } from "../../types/userTypes";
+import { ErrorResponseBody } from "../../types/errorResponseTypes";
 
-export const registerUser = async (req: Request, res: Response) => {
+export const registerUser = async (req: Request, res: Response<FetchedUserResponseBody | ErrorResponseBody>) => {
 
 	const { name, email, password, rememberMe } = req.body;
 
@@ -19,7 +19,6 @@ export const registerUser = async (req: Request, res: Response) => {
 	const hashedPassword = hashPassword(password);
 
 	try {
-		await initUserModel();
 		const existingUser = await getUserByEmail(email);
 
 		if (existingUser) {
@@ -37,14 +36,13 @@ export const registerUser = async (req: Request, res: Response) => {
 			throw Error('Internal Error');
 		}
 
-		await initTodosModel();
 		await createTodoInDB(user.id, defaultTodos);
 
 		const { id } = user;
 
 		sendJWT({ id }, rememberMe, res);
 
-		res.json({ id, name, todos: defaultTodos });
+		res.json({ user: { id, name }, todos: defaultTodos });
 
 	} catch (error) {
 		console.log(error);

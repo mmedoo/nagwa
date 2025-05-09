@@ -1,12 +1,9 @@
 import { TodosModel } from "../models/todosModel";
 import { TodoListType } from "../types/todosTypes";
-import { UserModelAttributes } from "../types/userTypes";
+import { UserIdType } from "../types/userTypes";
 
-export async function createTodoInDB(userId: UserModelAttributes['id'], todos: TodoListType[])
+export async function createTodoInDB(userId: UserIdType, todos: TodoListType[])
 	: Promise<void> {
-	if (!userId) {
-		throw new Error('User ID is required');
-	}
 	try {
 		await TodosModel.create({
 			userId,
@@ -20,11 +17,8 @@ export async function createTodoInDB(userId: UserModelAttributes['id'], todos: T
 }
 
 
-export async function updateTodosInDB(userId: UserModelAttributes['id'], todos: TodoListType[])
+export async function updateTodosInDB(userId: UserIdType, todos: TodoListType[])
 	: Promise<void> {
-	if (!userId) {
-		throw new Error('User ID is required');
-	}
 	try {
 		await TodosModel.update({
 			todos: JSON.stringify(todos)
@@ -36,17 +30,17 @@ export async function updateTodosInDB(userId: UserModelAttributes['id'], todos: 
 	}
 }
 
-export async function getTodosFromDB(userId: UserModelAttributes['id']): Promise<TodoListType[] | null> {
+export async function getTodosFromDB(userId: UserIdType): Promise<TodoListType[] | null> {
 	try {
-		const todosData = await TodosModel.findOne({
+		const row = await TodosModel.findOne({
 			where: { userId }
 		});
 
-		if (!todosData) {
+		if (!row) {
 			return null;
 		}
 
-		return JSON.parse(todosData.todos);
+		return JSON.parse(row.todos);
 	} catch (error) {
 		console.error('Error fetching todos from DB:', error);
 		throw new Error('Failed to fetch todos from DB');

@@ -5,6 +5,7 @@ import { RootState } from "../../app/store";
 import { ListCard } from "../../components/ListCard";
 import { addList } from "../../features/todos/todosSlice";
 import Input from "../../components/Input";
+import { User } from "../../types/AuthTypes";
 import "./home.css"
 
 // This is not meant to be a real counter,
@@ -13,7 +14,7 @@ let n = 0
 
 export default function Home() {
 	
-	const { name: username } = useSelector((state: RootState) => state.auth);
+	const user: User | undefined = useSelector((state: RootState) => state.auth.user);
 	
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
@@ -71,14 +72,14 @@ export default function Home() {
 					<img id="user-avatar" src="https://www.gravatar.com/avatar/?d=mp" alt="User Avatar" />
 
 					<span id="user-name">
-						{username}
+						{user?.name || 'Bro, Where is my name?'}
 					</span>
 
 					<div ref={popUpRef} className="popup-menu">
 
 						<div
 							className="pop-menu-item"
-							onClick={() => navigate('/auth/signout')}
+							onClick={() => navigate('/signout')}
 						>
 							<span>Sign Out</span>
 						</div>

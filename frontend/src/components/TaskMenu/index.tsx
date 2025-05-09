@@ -2,7 +2,7 @@ import { useMemo, useRef, useEffect, memo } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { RootState } from "../../app/store";
-import { ListIdType, TaskData } from "../../types";
+import { ListIdType, TaskData } from "../../types/TodosTypes";
 import TaskMenuItem from "./TaskMenuItem";
 import { get_all_taskData_ordered } from "../../features/todos/todosSelectors";
 import { addToDoAndUpdateSelection } from "../../features/todos/todosActions";

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { RootState } from "../../app/store";
 import { get_list_completion_percentage } from "../../features/todos/todosSelectors";
-import { MappedListData } from "../../types";
+import { MappedListData } from "../../types/TodosTypes";
 import { removeList } from "../../features/todos/todosSlice";
 import "./listCard.css"
 

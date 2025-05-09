@@ -1,11 +1,9 @@
-import { Outlet, Route, Routes } from "react-router";
+import { Route, Routes } from "react-router";
 import { lazy, useState } from "react";
 import { Suspense } from "react";
-import PrivateRoute from "../../components/PrivateRoute";
 import "./auth.css";
 
 const Login = lazy(() => import("./Login"));
-const SignOut = lazy(() => import("./SignOut"));
 const SignUp = lazy(() => import("./SignUp"));
 
 export default function Auth() {
@@ -14,34 +12,21 @@ export default function Auth() {
 
 	return (
 		<Suspense>
-			<Routes>
+			<div className="cont">
+				<h1>
+					Nagwa Todo-list
+				</h1>
 
-				<Route element={
-					<PrivateRoute forAuthed={false} element={
-						<div className="cont">
-							<h1>
-								Nagwa Todo-list
-							</h1>
-
-							<Outlet />
-							
-							<div className="error-message">
-								<p>{errorMessage}</p>
-							</div>
-						</div>
-					} />
-				}>
-
+				<Routes>
 					<Route path="login" element={<Login setErrorMessage={setErrorMessage} />} />
 					<Route path="signup" element={<SignUp setErrorMessage={setErrorMessage} />} />
-				</Route>
+				</Routes>
 
+				<div className="error-message">
+					<p>{errorMessage}</p>
+				</div>
+			</div>
 
-				<Route path="signout" element={
-					<PrivateRoute element={<SignOut />} />
-				} />
-
-			</Routes>
 		</Suspense>
 	);
 }

@@ -1,5 +1,5 @@
 import { createSelector } from "@reduxjs/toolkit";
-import { ListIdType, TaskData, TaskIdType } from "../../types";
+import { ListIdType, TaskData, TaskIdType } from "../../types/TodosTypes";
 import { RootState } from "../../app/store";
 
 export const get_all_taskData_from_listId = createSelector(

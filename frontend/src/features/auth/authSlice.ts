@@ -1,25 +1,27 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { User } from "../../types";
+import { AuthData } from "../../types/AuthTypes";
 import { login, logout, register } from "./authThunks";
+
+const initialState: AuthData = { authStatus: false };
 
 const authSlice = createSlice({
 	name: 'auth',
-	initialState: {} as User,
+	initialState,
 	reducers: {
-		setUser: (_state, action: PayloadAction<User>) => {
+		setUser: (_state, action: PayloadAction<AuthData>) => {
 			return action.payload;
 		}
 	},
 	extraReducers: builder => {
 		builder
-			.addCase(login.fulfilled, (_state, action: PayloadAction<User>) => {
+			.addCase(login.fulfilled, (_state, action: PayloadAction<AuthData>) => {
 				return action.payload;
 			})
-			.addCase(register.fulfilled, (_state, action: PayloadAction<User>) => {
+			.addCase(register.fulfilled, (_state, action: PayloadAction<AuthData>) => {
 				return action.payload;
 			})
 			.addCase(logout.fulfilled, () => {
-				return {} as User;
+				return { authStatus: false };
 			});
 	}
 });

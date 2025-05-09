@@ -1,20 +1,43 @@
 export type TaskIdType = string;
-
+/**
+ * Represents the data structure for a task.
+ * @property id - Unique identifier for the task.
+ * @property title - Title of the task.
+ * @property completed - Indicates whether the task is completed.
+ * @property description - Optional description of the task.
+*/
 export type TaskData = {
-	/** Unique identifier for the task */
+	/**
+	 * Unique identifier for the task
+	*/
 	id: TaskIdType;
-	/** Title of the task */
+
+	/**
+	 * Title of the task
+	*/
 	title: string;
-	/** Task Completion */
+
+	/**
+	* Task Completion
+	*/
 	completed: boolean;
-	/** Description of the task */
+
+	/**
+	* Description of the task
+	*/
 	description?: string;
-}
+};
 
 export type ListIdType = string;
+
 /**
  * Represents the structure of a mapped list containing tasks.
- */
+ * @property id - Unique identifier for the list.
+ * @property title - Title of the list.
+ * @property tasks - Object containing tasks associated with the list.
+ * @property tasks.byId - A mapping of task IDs to their corresponding task data.
+ * @property tasks.allIds - An array of all task IDs in the list.
+*/
 export type MappedListData = {
 	/**
 	 * Unique identifier for the list.
@@ -43,9 +66,14 @@ export type MappedListData = {
 		allIds: TaskIdType[];
 	};
 };
+
+
 /**
  * Represents the structure of an unmapped list containing tasks.
- */
+ * @property id - Unique identifier for the list.
+ * @property title - Title of the list.
+ * @property tasks - Array of task data associated with the list.
+*/
 export type UnMappedListData = {
 	/**
 	 * Unique identifier for the list.
@@ -61,18 +89,4 @@ export type UnMappedListData = {
 	 * Object containing tasks associated with the list.
 	 */
 	tasks: TaskData[];
-};
-
-
-/**
- * Represents the authentication data for a user.
- * 
- * @property authed - A boolean indicating whether the user is authenticated.
- * @property username - An optional string representing the username of the authenticated user.
- */
-
-
-export interface User {
-	id: string;
-	name: string;
 };

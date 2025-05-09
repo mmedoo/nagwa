@@ -7,7 +7,7 @@ import { useEffect } from 'react';
 import { setSelected } from '../../features/selectedSlice';
 import { toggleTodoCompletion } from '../../features/todos/todosSlice';
 import { ListHeader } from '../../components/ListHeader';
-import { TaskData } from '../../types';
+import { TaskData } from "../../types/TodosTypes";
 import { get_all_taskData_from_listId } from '../../features/todos/todosSelectors';
 import {
 	addToDoAndUpdateSelection,

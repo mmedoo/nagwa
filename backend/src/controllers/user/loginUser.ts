@@ -2,12 +2,12 @@ import defaultTodos from "../../data/defaultTodos.json"
 import { Request, Response } from "express";
 import { comparePasswords } from "../../utils/crypto";
 import { sendJWT } from "../../utils/jwt";
-import { initUserModel } from "../../models/userModel";
 import { getUserByEmail } from "../../services/userServices";
-import { initTodosModel } from "../../models/todosModel";
 import { getTodosFromDB } from "../../services/todosServices";
+import { FetchedUserResponseBody } from "../../types/userTypes";
+import { ErrorResponseBody } from "../../types/errorResponseTypes";
 
-export const loginUser = async (req: Request, res: Response) => {
+export const loginUser = async (req: Request, res: Response<FetchedUserResponseBody | ErrorResponseBody>) => {
 	try {
 		const { email, password, rememberMe } = req.body;
 
@@ -16,7 +16,6 @@ export const loginUser = async (req: Request, res: Response) => {
 			return;
 		}
 
-		await initUserModel();
 		const user = await getUserByEmail(email);
 
 		if (!user) {
@@ -33,12 +32,11 @@ export const loginUser = async (req: Request, res: Response) => {
 
 		const { id, name } = user;
 
-		await initTodosModel();
 		const todos = (await getTodosFromDB(user.id)) ?? defaultTodos;
 
 		sendJWT({ id }, rememberMe, res);
 
-		res.json({ id, name, todos });
+		res.json({ user: { id, name }, todos });
 
 	} catch (error) {
 		console.log(error);

@@ -4,6 +4,8 @@ import selectedReducer from '../features/selectedSlice'
 import authReducer from '../features/auth/authSlice'
 import { pushTodosToBackend } from '../features/todos/todosThunks';
 import { debounce } from 'lodash';
+import { AuthData } from '../types/AuthTypes';
+import { MappedListData } from '../types/TodosTypes';
 
 export const store = configureStore({
 	reducer: {
@@ -17,9 +19,9 @@ export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 
 const syncTodosDebounced = debounce((store) => {
-	const { auth, todos } = store.getState();
+	const { auth, todos }: {auth: AuthData, todos: MappedListData[]} = store.getState();
 
-	if (!auth || !auth.id)
+	if (!auth.authStatus)
 		return;
 	
 	pushTodosToBackend(todos)

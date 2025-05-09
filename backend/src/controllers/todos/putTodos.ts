@@ -1,9 +1,9 @@
 import { Response } from "express";
 import { AuthenticatedRequest } from "../../types/jwtTypes";
-import { initTodosModel } from "../../models/todosModel";
 import { getTodosFromDB, updateTodosInDB } from "../../services/todosServices";
+import { ErrorResponseBody } from "../../types/errorResponseTypes";
 
-export const updateTodos = async (req: AuthenticatedRequest, res: Response) => {
+export const updateTodos = async (req: AuthenticatedRequest, res: Response<ErrorResponseBody>) => {
 	const { todos } = req.body;
 
 	const userId = req.user?.id;
@@ -14,7 +14,6 @@ export const updateTodos = async (req: AuthenticatedRequest, res: Response) => {
 	}
 
 	try {
-		await initTodosModel();
 		const todo = await getTodosFromDB(userId);
 
 		if (!todo) {

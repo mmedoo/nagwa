@@ -1,5 +1,5 @@
 import api from '../../app/api';
-import { MappedListData, UnMappedListData } from '../../types';
+import { MappedListData, UnMappedListData } from "../../types/TodosTypes";
 
 export const pushTodosToBackend = async (todos: MappedListData[]) => {
 	

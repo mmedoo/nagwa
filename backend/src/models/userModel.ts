@@ -3,7 +3,7 @@ import sequelize from "../db";
 import { UserModelAttributes } from "../types/userTypes";
 
 export class UserModel extends Model<UserModelAttributes> implements UserModelAttributes {
-	declare id?: number;
+	declare id: number;
 	declare name: string;
 	declare email: string;
 	declare hashedPassword: string;
