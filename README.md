@@ -60,10 +60,11 @@ Nagwa Todo is a feature-rich task management application built with React, Redux
 - **Sequelize**: ORM for database management.
 - **SQLite**: Lightweight database for persistent storage.
 - **JWT**: Secure user authentication.
+- **TypeScript**: Strongly typed JavaScript for better code quality.
 
 ## Build Tools
-- **Vite**: Fast and modern build tool for development and production.
-- **ESLint**: Linting and code quality enforcement.
+- **Vite**
+- **ESLint**
 - **TypeScript Compiler**: For type checking and transpilation.
 
 
@@ -77,7 +78,7 @@ frontend Mocking/
 │   ├── components/         # Reusable UI components
 │   ├── features/           # Redux slices and actions
 │   ├── routes/             # Application routes (Home, Auth, List, NotFound)
-│   ├── types.ts            # TypeScript type definitions
+│   ├── types/              # TypeScript type definitions
 │   ├── main.tsx            # Application entry point
 │   ├── index.css           # Global styles
 ├── public/                 # Static assets
@@ -89,14 +90,14 @@ frontend Mocking/
 ```
 backend/
 ├── src/
-│   ├── app.ts              # Express app configuration
-│   ├── db.ts               # Sequelize database connection
-│   ├── models/             # Sequelize models (User, Todos)
 │   ├── controllers/        # Route controllers
+│   ├── data/               # Static data (e.g., default todos)
+│   ├── models/             # Sequelize models (User, Todos)
 │   ├── middleware/         # Authentication middleware
 │   ├── routes/             # API routes
-│   ├── data/               # Static data (e.g., default todos)
 │   ├── types/              # TypeScript type definitions
+│   ├── app.ts              # Express app configuration
+│   ├── db.ts               # Sequelize database connection
 │   ├── index.ts            # Application entry point
 ├── database.sqlite         # SQLite database file
 ├── tsconfig.json           # TypeScript configuration

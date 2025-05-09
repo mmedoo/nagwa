@@ -1,9 +1,11 @@
 {
 	"scripts": {
-		"review": "concurrently \"cd backend && npm run dev\" \"cd frontend && npm run dev\"",
-		"install": "concurrently \"cd backend && npm install\" \"cd frontend && npm install\""
+		"review": "concurrently \"cd backend && npm run dev\" \"npm run wait-and-client\"",
+		"install": "concurrently \"cd backend && npm install\" \"cd frontend && npm install\"",
+		"wait-and-client": "wait-on http://localhost:1234 && cd frontend && npm run dev"
 	},
 	"devDependencies": {
-		"concurrently": "^8.2.0"
+		"concurrently": "^8.2.0",
+		"wait-on": "^8.0.3"
 	}
 }

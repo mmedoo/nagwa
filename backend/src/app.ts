@@ -13,6 +13,10 @@ app.use(errorHandler);
 app.use(express.json());
 app.use(cookieParser());
 
+app.head('/', (_req, res) => {
+	res.status(200).end();
+});
+
 app.use(cors({
 	origin: ['http://localhost:5173'], // Allowed origins
 	methods: ['GET', 'POST', 'PUT'], // Allowed HTTP methods
