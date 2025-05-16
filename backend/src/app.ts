@@ -1,9 +1,9 @@
 import express from 'express';
-import userRoutes from './routes/userRoutes';
-import todosRoutes from './routes/todosRoutes';
+import userRoutes from './routes/user.route';
+import todosRoutes from './routes/todos.route';
 import cookieParser from 'cookie-parser'
 import cors from 'cors';
-import { errorHandler } from './middleware/errorHandler';
+import { errorHandler } from './middleware/error.middleware';
 import morgan from 'morgan';
 
 const app = express();

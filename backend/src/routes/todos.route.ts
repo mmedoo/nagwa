@@ -1,7 +1,7 @@
 import express from 'express';
-import { authenticateToken } from '../middleware/authMiddleware';
-import { updateTodos } from '../controllers/todos/putTodos';
-import { fetchUserTodos } from '../controllers/todos/getTodos';
+import { authenticateToken } from '../middleware/auth.middleware';
+import { updateTodos } from "../controllers/todos.controller";
+import { fetchUserTodos } from "../controllers/todos.controller";
 
 const router = express.Router();
 

@@ -11,14 +11,18 @@ const jwt_secret = process.env.JWT_SECRET || "61c0fa6abc84af009632cb690815f04586
 
 /**
  * Sends a JWT token as a cookie.
- * @param user - The user payload to encode in the token.
+ * @param payload - The user payload to encode in the token.
  * @param rememberMe - Whether the token should be long-lived.
  * @param res - The Express response object.
  */
-export const sendJWT = (user: string | Buffer | object, rememberMe: boolean, res: Response): void => {
+export const sendJWT = (
+	payload: string | Buffer | object,
+	rememberMe: boolean,
+	res: Response
+): void => {
 
 	const token = jwt.sign(
-		user,
+		payload,
 		jwt_secret,
 		rememberMe ?
 			{ expiresIn: LONG_LIVED_TOKEN_EXPIRY, }

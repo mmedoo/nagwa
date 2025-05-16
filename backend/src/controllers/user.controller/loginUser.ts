@@ -2,8 +2,8 @@ import defaultTodos from "../../data/defaultTodos.json"
 import { Request, Response } from "express";
 import { comparePasswords } from "../../utils/crypto";
 import { sendJWT } from "../../utils/jwt";
-import { getUserByEmail } from "../../services/userServices";
-import { getTodosFromDB } from "../../services/todosServices";
+import { getUserByEmail } from "../../repos/user.repo";
+import { getTodosFromDB } from "../../repos/todos.repo";
 import { FetchedUserResponseBody } from "../../types/userTypes";
 import { ErrorResponseBody } from "../../types/errorResponseTypes";
 

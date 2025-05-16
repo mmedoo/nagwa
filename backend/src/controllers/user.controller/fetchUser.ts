@@ -1,7 +1,7 @@
 import { Response } from "express";
 import { AuthenticatedRequest } from "../../types/jwtTypes";
-import { getUserById } from "../../services/userServices";
-import { getTodosFromDB } from "../../services/todosServices";
+import { getUserById } from "../../repos/user.repo";
+import { getTodosFromDB } from "../../repos/todos.repo";
 import { FetchedUserResponseBody } from "../../types/userTypes";
 import { ErrorResponseBody } from "../../types/errorResponseTypes";
 

@@ -1,7 +1,7 @@
 import app from './app';
 import sequelize from './db';
-import { initTodosModel } from './models/todosModel';
-import { initUserModel } from './models/userModel';
+import { initTodosModel } from './models/todos.model';
+import { initUserModel } from './models/user.model';
 
 const PORT = 1234;
 
