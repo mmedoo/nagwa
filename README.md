@@ -93,9 +93,11 @@ backend/
 │   ├── controllers/        # Route controllers
 │   ├── data/               # Static data (e.g., default todos)
 │   ├── models/             # Sequelize models (User, Todos)
-│   ├── middleware/         # Authentication middleware
+│   ├── repos/              # Repository layer for database operations
 │   ├── routes/             # API routes
+│   ├── middleware/         # Authentication middleware
 │   ├── types/              # TypeScript type definitions
+│   ├── utils/              # Utility functions for common operations
 │   ├── app.ts              # Express app configuration
 │   ├── db.ts               # Sequelize database connection
 │   ├── index.ts            # Application entry point

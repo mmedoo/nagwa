@@ -45,18 +45,13 @@ export const sendJWT = (
  */
 export const verifyJWT = (token: string): TokenPayload => {
 	try {
-
 		const decoded = jwt.verify(token, jwt_secret) as TokenPayload;
-		
 		return decoded;
-
 	} catch (error) {
-		if (error instanceof jwt.TokenExpiredError) {
+		if (error instanceof jwt.TokenExpiredError)
 			throw new Error('Token expired');
-		} else if (error instanceof jwt.JsonWebTokenError) {
+		if (error instanceof jwt.JsonWebTokenError)
 			throw new Error('Invalid token');
-		} else {
-			throw new Error('Token verification failed');
-		}
+		throw new Error('Token verification failed');
 	}
 };
